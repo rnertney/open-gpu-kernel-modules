@@ -445,6 +445,8 @@ ccslContextInitViaChannel_IMPL
     {
         return NV_ERR_NO_MEMORY;
     }
+    portMemSet(pCtx, 0, sizeof(*pCtx));
+    
     *ppCtx = pCtx;
     
     pCtx->msgCounterSize = CSL_MSG_CTR_32;
@@ -463,7 +465,8 @@ ccslContextInitViaChannel_IMPL
         status = NV_ERR_NO_MEMORY;
         goto ccslContextInitViaChannelCleanup;
     }
-
+    portMemSet(pCtx->pDecryptBundles, 0, sizeof(*pCtx->pDecryptBundles) * MAX_DECRYPT_BUNDLES);
+    
     pCtx->hClient = hClient;
     pCtx->hSubdevice = hSubdevice;
     pCtx->hChannel = hChannel;
